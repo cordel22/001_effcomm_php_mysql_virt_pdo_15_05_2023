@@ -1,0 +1,118 @@
+</div>
+<div class="sidebar">
+  <!--SIDEBAR-->
+  <div class="title">
+    <!-- <h4>Manage Your Account</h4>
+  </div>
+  <ul>
+    <li><a href="renew.php" title="Renew Your Account">
+      Account
+    </a></li>
+    <li><a href="change_password.php" title="Change Your Password">
+      Change Password
+    </a></li>
+    <li><a href="favorites.php" title="View Your Favorite Pages">
+      Favorites
+    </a></li>
+    <li><a href="recommendations.php" title="View Your Recommendations">
+      Recommendations
+    </a></li>
+    <li><a href="logout.php" title="Logout">Logout</a></li>
+  </ul>
+  <div class="title">
+    <h4>Content</h4>
+  </div>
+  <ul>
+    <li><a href="category.php?id=3" title="Common Attacks">
+      Common Attacks
+    </a></li>
+    <li><a href="category.php?id=5" title="Database Security">
+      Database Security
+    </a></li>
+    <li><a href="category.php?id=1" title="General Web">
+      General Web
+    </a></li>
+    <li><a href="category.php?id=4" title="JavaScript Security">
+      JavaScript Security
+    </a></li>
+    <li><a href="category.php?id=2" title="PHP Security">
+      Common Attacks
+    </a></li>
+    <li><a href="pdfs.php" title="PDF Guides">
+      PDF Guides
+    </a></li>
+  </ul> -->
+  <?php
+    if (isset($_SESSION['user_id'])) {
+      echo '<div class="title">
+        <h4>Manage Your Account</h4>
+        </div>
+        <ul>
+          <li><a href="renew.php" title="Renew Your Account">
+            Renew Account
+          </a></li>
+          <li><a href="change_password.php" title="Change Your Password">
+            Change Password
+          </a></li>
+          <li><a href="favorites.php" title="View Your Favorite Pages">
+            Favorites
+          </a></li>
+          <li><a href="recommendations.php" title="View Your Recommendations">
+            Recommendations
+          </a></li>
+          <li><a href="logout.php" title="Logout">Logout</a></li>
+        </ul>
+        ';
+        if (isset($_SESSION['user_admin'])) {
+          echo '<div class="title">
+            <h4>Administration</h4>
+          </div>
+          <ul>
+            <li><a href="add_page.php" title="Add a Page">
+              AddPage
+            </a></li>
+            <li><a href="add_pdf.php" title="Add a PDF">
+              Add PDF
+            </a></li>
+            <li><a href="#" title="Blah">
+              Blah
+            </a></li>
+
+          </ul>
+          ';
+        }
+    } else {
+      require('includes/login_form.inc.php');
+    }
+  ?>
+
+  <?php
+    //  $q = 'SELECT * FROM categories ORDER BY category';
+    
+    //  $r = mysqli_query($dbc,$q);
+    $stmt = $pdo->query("SELECT * FROM categories ORDER BY category");
+
+    //  while(list($id, $category) = mysqli_fetch_array($r, MYSQLI_NUM)) {
+    while(list($id, $category) = $stmt->fetch(PDO::FETCH_ASSOC)) {  //  prip. odstran list
+      echo '<li><a href="category.php?id=' . $id . '"title="' . $category .
+        '">' . $category . '</a></li>';
+    }
+  ?>
+  <!--END SIDEBAR-->
+  </div>
+  <div class="footer">
+    <p><a href="site_map.php" title="Site Map">
+      Site Map
+    </a>|
+    <a href="policies.php" title="Site Policies">
+      Policies
+    </a>
+    &nbsp;&nbsp;&copy;Knowledge is Power | Design by
+    <a href="http://www.spyka.net">spyka webmaster</a></p>
+  </div>
+  <!-- </ul> -->
+</div><!--END PAGE-->
+</div>
+
+</body>
+</html>
